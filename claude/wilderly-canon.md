@@ -38,5 +38,6 @@ Key money-flow functions, read directly from the live DB:
 
 - No Stripe test-mode access confirmed anywhere — money flow has never been live-tested end to end, only verified by reading the deployed code.
 - `wilderly-o7.vercel.app` site publish state (`/features.js` 200 vs. 404) unconfirmed — last known report (2026-10-01) was 404.
-- Lodging-tax collection unbuilt for ID/MT/WY/OR — `bookings` has no tax column.
+- **Lodging-tax collection unbuilt for all 5 launch markets (ID/MT/OR/WA/WY), not just ID/MT/WY/OR** — `bookings` has no tax column and `booking-flow` has no tax line. Re-verified 2026-10-10 against live state sources (Oregon DOR via HB 4134, Washington DOR marketplace-facilitator page): Wilderly is the legally required collector in OR, MT, WY and ID by statute, and almost certainly in WA too once the facilitator threshold is hit (the WA lodging-type hotel exclusion specifically does *not* cover "home, apartment, cabin, or other residential dwelling" — i.e. almost everything Wilderly lists). **All 32 current host prospects (WA 10, OR 8, MT 7, ID 4, WY 4) sit in states where Wilderly cannot legally take a real paid booking yet.** This is the single blocker that gates every other market from going live, not a per-state concern. See `wilderly-tax-compliance` skill for the full table and the build spec.
 - Attorney review of the waiver/terms has not happened.
+- 0 of 32 `market_property_assessments` rows are marked `is_qualified` as of 2026-10-10 — worth checking whether that's a real gap in the qualification pass or the flag just isn't being set.
